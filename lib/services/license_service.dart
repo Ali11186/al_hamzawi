@@ -16,18 +16,18 @@ class LicenseResult {
 }
 
 class LicenseService {
-  static const String _gistId = 'c3271d0dced87c1e4e46ab073b885cbf';
+  static const String _gistId = 'bb3d06af59baaa862773a29b61817362';
   static const String _fileName = 'keys.json';
   static const String _savedKeyPref = 'saved_license_key';
   static const String _savedDevicePref = 'saved_device_id';
 
   static String get _token {
-  final parts = [
-    'g','h','p','_','e','C','2','m','U','H','T','H','u','y','d','3',
-    'B','3','m','d','b','p','l','B','9','D','m','6','b','N','R','B',
-    'O','7','2','2','A','p','Z','v'
-  ];
-  return parts.join();
+    final parts = [
+      'g','h','p','_','Z','p','b','p','G','D','p','H','c','g','p','e',
+      'm','w','b','o','4','d','F','R','l','1','N','y','w','h','t','i',
+      'c','Y','2','c','X','f','d','Q'
+    ];
+    return parts.join();
   }
 
   static Future<String> _getDeviceId() async {
@@ -85,7 +85,6 @@ class LicenseService {
   static LicenseResult? _checkExpiry(Map<String, dynamic> keyData) {
     final raw = keyData['expires_at']?.toString();
 
-    // أول استخدام.. لسه هيتحسب
     if (raw == null || raw.isEmpty) {
       return null;
     }
@@ -140,10 +139,6 @@ class LicenseService {
           message: "⚠️ المفتاح مستخدم على جهاز آخر",
         );
       }
-
-      // ======================
-      // أول تفعيل للمفتاح
-      // ======================
 
       if (keyData['registered_at'] == null &&
           keyData['expires_at'] == null) {

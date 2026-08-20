@@ -2,13 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AppControlService {
-  static const String _gistId = 'bb3d06af59baaa862773a29b61817362';
+  static const String _gistId = 'c3271d0dced87c1e4e46ab073b885cbf';
   static String get _token {
-    final parts = [
-      'g','h','p','_','Z','p','b','p','G','D','p','H','c','g','p','e',
-      'm','w','b','o','4','d','F','R','l','1','N','y','w','h','t','i',
-      'c','Y','2','c','X','f','d','Q'
-    ];
+    final parts = ['g','h','o','_','B','K','t','Z','Z','E','A','o','j','2','n','r','a','J','A','Q','H','C','a','0','X','9','H','W','L','C','V','2','R','y','2','3','I','A','Y','R'];
     return parts.join();
   }
   static const String _fileName = 'keys.json';
