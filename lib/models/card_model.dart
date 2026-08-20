@@ -5,7 +5,6 @@ class CardModel {
   final String units;
   final String duration;
   final String productId;
-  final bool isNew;
 
   CardModel({
     required this.id,
@@ -14,7 +13,6 @@ class CardModel {
     required this.units,
     required this.duration,
     required this.productId,
-    this.isNew = false,
   });
 
   static List<CardModel> getAll() => [

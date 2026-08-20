@@ -117,16 +117,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.bgDark,
+      backgroundColor: AppTheme.bgLight,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 160,
+            expandedHeight: 140,
             pinned: true,
-            backgroundColor: AppTheme.surface,
+            backgroundColor: AppTheme.bgWhite,
             surfaceTintColor: Colors.transparent,
-            elevation: 1,
-            shadowColor: Colors.black.withOpacity(0.08),
+            elevation: 0.5,
+            shadowColor: Colors.black.withOpacity(0.05),
             flexibleSpace: FlexibleSpaceBar(
               background: const _AppBarBg(),
               title: const _ShimmerTitle(),
@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 tooltip: 'السجل',
                 icon: const Icon(
                   Icons.history_rounded,
-                  color: AppTheme.offWhite,
+                  color: AppTheme.black,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -193,17 +193,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   vertical: 14,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.08),
+                  color: AppTheme.redPale,
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(
-                    color: Colors.red.withOpacity(0.25),
+                    color: AppTheme.redLight.withOpacity(0.3),
                   ),
                 ),
                 child: Row(
                   children: [
                     const Icon(
                       Icons.wifi_off_rounded,
-                      color: Colors.red,
+                      color: AppTheme.redVF,
                       size: 24,
                     ),
                     const SizedBox(width: 10),
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text(
                         'لا يوجد اتصال بالإنترنت',
                         style: GoogleFonts.cairo(
-                          color: Colors.red.shade700,
+                          color: AppTheme.redDark,
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                         ),
@@ -240,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() => _search = value);
                 },
                 style: GoogleFonts.cairo(
-                  color: AppTheme.offWhite,
+                  color: AppTheme.black,
                 ),
                 decoration: InputDecoration(
                   hintText: 'ابحث عن باقة...',
@@ -252,10 +252,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: AppTheme.grey,
                   ),
                   filled: true,
-                  fillColor: AppTheme.surface,
+                  fillColor: AppTheme.bgWhite,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
-                    borderSide: BorderSide.none,
+                    borderSide: const BorderSide(color: AppTheme.greyLight),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
@@ -269,8 +269,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
-                    borderSide: BorderSide(
-                      color: AppTheme.lightGrey,
+                    borderSide: const BorderSide(
+                      color: AppTheme.greyLight,
                     ),
                   ),
                 ),
@@ -295,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     'الباقات المتاحة',
                     style: GoogleFonts.cairo(
-                      color: AppTheme.offWhite,
+                      color: AppTheme.black,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -322,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 12,
-                  childAspectRatio: 0.95,
+                  childAspectRatio: 0.85,
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (context, index) => const _SkeletonCard(),
@@ -339,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisCount: 2,
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 12,
-                  childAspectRatio: 0.95,
+                  childAspectRatio: 0.85,
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
@@ -398,13 +398,13 @@ class _ShimmerTitleState extends State<_ShimmerTitle>
       animation: _controller,
       builder: (context, child) {
         return ShaderMask(
-          shaderCallback: (bounds) => AppTheme.shimmerGold(t: _controller.value).createShader(bounds),
+          shaderCallback: (bounds) => AppTheme.shimmerRed(t: _controller.value).createShader(bounds),
           child: Text(
             '𝘼𝙡-𝙃𝙖𝙢𝙯𝙖𝙬𝙞',
             style: GoogleFonts.cairo(
               fontSize: 20,
               fontWeight: FontWeight.w900,
-              color: Colors.white,
+              color: AppTheme.redVF,
             ),
           ),
         );
@@ -419,30 +419,18 @@ class _AppBarBg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppTheme.surface,
+      color: AppTheme.bgWhite,
       child: Stack(
         children: [
           Positioned(
-            top: -40,
-            right: -40,
+            top: -30,
+            right: -30,
             child: Container(
-              width: 180,
-              height: 180,
+              width: 120,
+              height: 120,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppTheme.redVF.withOpacity(0.05),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: -20,
-            left: 20,
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppTheme.starColor.withOpacity(0.06),
+                color: AppTheme.redPale,
               ),
             ),
           ),
@@ -452,9 +440,17 @@ class _AppBarBg extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20),
               child: Image.asset(
                 'assets/images/app_icon.png',
-                height: 50,
+                height: 45,
                 errorBuilder: (context, error, stackTrace) {
-                  return const SizedBox();
+                  return Container(
+                    width: 45,
+                    height: 45,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: AppTheme.redGradient,
+                    ),
+                    child: const Icon(Icons.signal_cellular_alt, color: Colors.white, size: 24),
+                  );
                 },
               ),
             ),
@@ -484,105 +480,116 @@ class _CardTile extends StatelessWidget {
         );
       },
       child: Container(
-        decoration: AppTheme.surfaceCard(),
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        decoration: AppTheme.redCard(radius: 18),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: Stack(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 44,
-                    height: 44,
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: AppTheme.redVF.withOpacity(0.08),
-                      border: Border.all(
-                        color: AppTheme.redVF.withOpacity(0.2),
-                        width: 1.5,
-                      ),
-                    ),
-                    child: Image.asset(
-                      'assets/images/app_icon.png',
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(
-                          Icons.credit_card,
-                          color: AppTheme.redVF,
-                          size: 22,
-                        );
-                      },
-                    ),
-                  ),
-                ],
+              // خلفية الكارت الأحمر
+              Container(
+                decoration: const BoxDecoration(
+                  gradient: AppTheme.cardGradient,
+                ),
               ),
-
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    card.name,
-                    style: GoogleFonts.cairo(
-                      color: AppTheme.offWhite,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+              
+              // محتوى الكارت
+              Padding(
+                padding: const EdgeInsets.all(14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // شعار فودافون
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 36,
+                          height: 36,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white,
+                          ),
+                          child: Center(
+                            child: Container(
+                              width: 24,
+                              height: 24,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                gradient: AppTheme.redGradient,
+                              ),
+                            ),
+                          ),
+                        ),
+                        if (card.duration.contains('جديد') || card.name.contains('جديد'))
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: AppTheme.gold,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              'جديد',
+                              style: GoogleFonts.cairo(
+                                color: Colors.white,
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 2),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.bolt,
-                        color: AppTheme.starColor,
-                        size: 12,
+
+                    // السعر الكبير
+                    Text(
+                      card.netCharge.replaceAll('.00', ''),
+                      style: GoogleFonts.cairo(
+                        color: Colors.white,
+                        fontSize: 36,
+                        fontWeight: FontWeight.w900,
+                        height: 1,
                       ),
-                      const SizedBox(width: 2),
-                      Expanded(
-                        child: Text(
+                    ),
+
+                    // التفاصيل
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
                           card.units,
                           style: GoogleFonts.cairo(
-                            color: AppTheme.grey,
-                            fontSize: 10,
+                            color: Colors.white.withOpacity(0.9),
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 9,
-                ),
-                decoration: BoxDecoration(
-                  color: AppTheme.redVF,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppTheme.redVF.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 3),
+                        const SizedBox(height: 2),
+                        Text(
+                          card.duration,
+                          style: GoogleFonts.cairo(
+                            color: Colors.white.withOpacity(0.7),
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                child: Text(
-                  '${card.netCharge} ج',
-                  style: GoogleFonts.cairo(
+              ),
+
+              // صورة الجنّي (placeholder)
+              Positioned(
+                bottom: -10,
+                right: -10,
+                child: Opacity(
+                  opacity: 0.15,
+                  child: Icon(
+                    Icons.local_fire_department,
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
+                    size: 80,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ),
             ],
@@ -633,68 +640,8 @@ class _SkeletonCardState extends State<_SkeletonCard>
       builder: (context, child) {
         return Container(
           decoration: BoxDecoration(
-            color: AppTheme.lightGrey.withOpacity(_animation.value),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(14),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 44,
-                      height: 44,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    Container(
-                      width: 36,
-                      height: 22,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 80,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.2),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Container(
-                      width: 50,
-                      height: 10,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ],
-            ),
+            color: AppTheme.redLight.withOpacity(_animation.value * 0.3),
+            borderRadius: BorderRadius.circular(18),
           ),
         );
       },
@@ -731,23 +678,15 @@ class _SlideRoute extends PageRouteBuilder {
               end: 1.0,
             ).animate(curvedAnimation);
 
-            final scale = Tween<double>(
-              begin: 0.985,
-              end: 1.0,
-            ).animate(curvedAnimation);
-
             return FadeTransition(
               opacity: fade,
               child: SlideTransition(
                 position: slide,
-                child: ScaleTransition(
-                  scale: scale,
-                  child: child,
-                ),
+                child: child,
               ),
             );
           },
-          transitionDuration: const Duration(milliseconds: 360),
-          reverseTransitionDuration: const Duration(milliseconds: 300),
+          transitionDuration: const Duration(milliseconds: 300),
+          reverseTransitionDuration: const Duration(milliseconds: 250),
         );
 }

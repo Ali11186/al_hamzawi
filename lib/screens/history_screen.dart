@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../services/history_service.dart';
 import '../theme/app_theme.dart';
 
@@ -41,13 +42,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.bgDark,
+      backgroundColor: AppTheme.bgLight,
       appBar: AppBar(
-        backgroundColor: AppTheme.surface,
-        elevation: 0,
-        title: const Text('سجل العمليات', style: TextStyle(color: AppTheme.offWhite, fontWeight: FontWeight.bold)),
+        backgroundColor: AppTheme.bgWhite,
+        elevation: 0.5,
+        shadowColor: Colors.black.withOpacity(0.05),
+        title: Text('سجل العمليات', style: GoogleFonts.cairo(color: AppTheme.black, fontWeight: FontWeight.bold)),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_rounded, color: AppTheme.offWhite),
+          icon: const Icon(Icons.arrow_back_ios_rounded, color: AppTheme.black),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -57,12 +59,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
               onPressed: () => showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
-                  backgroundColor: AppTheme.surface,
-                  title: const Text('مسح السجل', style: TextStyle(color: AppTheme.offWhite)),
-                  content: const Text('هل تريد مسح كل السجل؟', style: TextStyle(color: AppTheme.grey)),
+                  backgroundColor: AppTheme.bgWhite,
+                  title: Text('مسح السجل', style: GoogleFonts.cairo(color: AppTheme.black)),
+                  content: Text('هل تريد مسح كل السجل؟', style: GoogleFonts.cairo(color: AppTheme.grey)),
                   actions: [
-                    TextButton(onPressed: () => Navigator.pop(context), child: const Text('إلغاء', style: TextStyle(color: AppTheme.grey))),
-                    TextButton(onPressed: () { Navigator.pop(context); _clear(); }, child: const Text('مسح', style: TextStyle(color: AppTheme.redVF))),
+                    TextButton(onPressed: () => Navigator.pop(context), child: Text('إلغاء', style: GoogleFonts.cairo(color: AppTheme.grey))),
+                    TextButton(onPressed: () { Navigator.pop(context); _clear(); }, child: Text('مسح', style: GoogleFonts.cairo(color: AppTheme.redVF))),
                   ],
                 ),
               ),
@@ -72,13 +74,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator(color: AppTheme.redVF))
           : _history.isEmpty
-              ? const Center(
+              ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.history_rounded, color: AppTheme.grey, size: 64),
-                      SizedBox(height: 16),
-                      Text('لا يوجد سجل بعد', style: TextStyle(color: AppTheme.grey, fontSize: 16)),
+                      Icon(Icons.history_rounded, color: AppTheme.greyLight, size: 64),
+                      const SizedBox(height: 16),
+                      Text('لا يوجد سجل بعد', style: GoogleFonts.cairo(color: AppTheme.grey, fontSize: 16)),
                     ],
                   ),
                 )
@@ -93,18 +95,21 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: AppTheme.surface,
+                        color: AppTheme.bgWhite,
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: statusColor.withOpacity(0.2),
+                          color: statusColor.withOpacity(0.15),
                         ),
+                        boxShadow: [
+                          BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 8, offset: const Offset(0, 2)),
+                        ],
                       ),
                       child: Row(
                         children: [
                           Container(
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                              color: statusColor.withOpacity(0.1),
+                              color: statusColor.withOpacity(0.08),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Icon(
@@ -118,15 +123,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(item['card'] ?? '', style: const TextStyle(color: AppTheme.offWhite, fontWeight: FontWeight.bold)),
-                                Text(item['phone'] ?? '', style: const TextStyle(color: AppTheme.grey, fontSize: 13)),
-                                Text(_formatDate(item['date'] ?? ''), style: const TextStyle(color: AppTheme.grey, fontSize: 11)),
+                                Text(item['card'] ?? '', style: GoogleFonts.cairo(color: AppTheme.black, fontWeight: FontWeight.bold)),
+                                Text(item['phone'] ?? '', style: GoogleFonts.cairo(color: AppTheme.grey, fontSize: 13)),
+                                Text(_formatDate(item['date'] ?? ''), style: GoogleFonts.cairo(color: AppTheme.grey, fontSize: 11)),
                               ],
                             ),
                           ),
                           Text(
                             '${item['charge']} ج',
-                            style: const TextStyle(color: AppTheme.redVF, fontWeight: FontWeight.bold, fontSize: 15),
+                            style: GoogleFonts.cairo(color: AppTheme.redVF, fontWeight: FontWeight.bold, fontSize: 15),
                           ),
                         ],
                       ),

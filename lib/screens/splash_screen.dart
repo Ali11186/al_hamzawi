@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
     ));
     _shimmerCtrl = AnimationController(
       vsync: this,
@@ -105,7 +105,7 @@ class _SplashScreenState extends State<SplashScreen>
         message: 'تعذر الاتصال بالسيرفر\nتأكد من اتصالك بالإنترنت',
         actions: [
           _DialogBtn(label: 'إعادة المحاولة', color: AppTheme.gold, onTap: () { Navigator.pop(context); _startChecks(); }),
-          _DialogBtn(label: 'خروج', color: AppTheme.darkGrey, onTap: () => SystemNavigator.pop()),
+          _DialogBtn(label: 'خروج', color: AppTheme.grey, onTap: () => SystemNavigator.pop()),
         ],
       );
     } else {
@@ -130,7 +130,13 @@ class _SplashScreenState extends State<SplashScreen>
       builder: (_) => Dialog(
         backgroundColor: Colors.transparent,
         child: Container(
-          decoration: AppTheme.goldGlowCard(radius: 26),
+          decoration: BoxDecoration(
+            color: AppTheme.bgWhite,
+            borderRadius: BorderRadius.circular(26),
+            boxShadow: [
+              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 30),
+            ],
+          ),
           child: Padding(
             padding: const EdgeInsets.all(28),
             child: Column(
@@ -140,13 +146,13 @@ class _SplashScreenState extends State<SplashScreen>
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: iconColor.withOpacity(0.12),
-                    border: Border.all(color: iconColor.withOpacity(0.4), width: 2),
+                    color: iconColor.withOpacity(0.1),
+                    border: Border.all(color: iconColor.withOpacity(0.3), width: 2),
                   ),
                   child: Icon(icon, color: iconColor, size: 44),
                 ),
                 const SizedBox(height: 20),
-                Text(title, style: GoogleFonts.cairo(color: AppTheme.offWhite, fontSize: 20, fontWeight: FontWeight.w900)),
+                Text(title, style: GoogleFonts.cairo(color: AppTheme.black, fontSize: 20, fontWeight: FontWeight.w900)),
                 const SizedBox(height: 8),
                 Text(message, style: GoogleFonts.cairo(color: AppTheme.grey, fontSize: 14), textAlign: TextAlign.center),
                 const SizedBox(height: 24),
@@ -165,88 +171,91 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(gradient: AppTheme.backgroundGradient),
-        child: Stack(
-          children: [
-            Positioned(top: -120, right: -100,
-              child: Container(width: 380, height: 380,
-                decoration: BoxDecoration(shape: BoxShape.circle,
-                  gradient: RadialGradient(colors: [AppTheme.redVF.withOpacity(0.20), Colors.transparent])))),
-            Positioned(bottom: -100, left: -100,
-              child: Container(width: 320, height: 320,
-                decoration: BoxDecoration(shape: BoxShape.circle,
-                  gradient: RadialGradient(colors: [AppTheme.gold.withOpacity(0.12), Colors.transparent])))),
+      backgroundColor: AppTheme.bgLight,
+      body: Stack(
+        children: [
+          // خلفية بيضاء ناعمة
+          Positioned(top: -100, right: -80,
+            child: Container(width: 300, height: 300,
+              decoration: BoxDecoration(shape: BoxShape.circle,
+                gradient: RadialGradient(colors: [AppTheme.redPale, Colors.transparent])))),
+          Positioned(bottom: -80, left: -60,
+            child: Container(width: 250, height: 250,
+              decoration: BoxDecoration(shape: BoxShape.circle,
+                gradient: RadialGradient(colors: [AppTheme.goldLight.withOpacity(0.3), Colors.transparent])))),
 
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 168, height: 168,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppTheme.surface,
-                      boxShadow: [
-                        BoxShadow(color: AppTheme.gold.withOpacity(0.35), blurRadius: 46, spreadRadius: 4),
-                        BoxShadow(color: AppTheme.redVF.withOpacity(0.18), blurRadius: 90, spreadRadius: 18),
-                        BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 24, offset: const Offset(0, 12)),
-                      ],
-                      border: const GradientBoxBorder(gradient: AppTheme.goldGradient, width: 2.2),
-                    ),
-                    padding: const EdgeInsets.all(28),
-                    child: Image.asset('assets/images/app_icon.png',
-                      errorBuilder: (_, __, ___) => const Icon(Icons.signal_cellular_alt, color: AppTheme.gold, size: 70)),
-                  )
-                  .animate(onPlay: (c) => c.repeat(reverse: true))
-                  .scale(begin: const Offset(1.0, 1.0), end: const Offset(1.04, 1.04), duration: 1500.ms),
-
-                  const SizedBox(height: 48),
-
-                  AnimatedBuilder(
-                    animation: _shimmerCtrl,
-                    builder: (_, __) => ShaderMask(
-                      shaderCallback: (bounds) => AppTheme.shimmerGold(t: _shimmerCtrl.value).createShader(bounds),
-                      child: Text('𝘼𝙡-𝙃𝙖𝙢𝙯𝙖𝙬𝙞',
-                        style: GoogleFonts.cairo(fontSize: 32, fontWeight: FontWeight.w900, color: AppTheme.gold,
-                          letterSpacing: 1)),
-                    ),
-                  ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.2),
-
-                  const SizedBox(height: 10),
-
-                  ShaderMask(
-                    shaderCallback: (bounds) => AppTheme.goldGradient.createShader(bounds),
-                    child: Text('𝙏𝙚𝙖𝙢 𝙅𝙤𝙆𝙨 𝙎𝙩𝙤𝙧𝙚',
-                      style: GoogleFonts.cairo(fontSize: 13, fontWeight: FontWeight.w700,
-                        color: Colors.white, letterSpacing: 4),
-                    ),
-                  ).animate().fadeIn(delay: 200.ms),
-
-                  const SizedBox(height: 80),
-
-                  if (_status.isNotEmpty) ...[
-                    Text(_status,
-                      style: GoogleFonts.cairo(color: AppTheme.grey, fontSize: 13),
-                    ).animate().fadeIn(),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      width: 180,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: LinearProgressIndicator(
-                          backgroundColor: AppTheme.lightGrey,
-                          valueColor: const AlwaysStoppedAnimation(AppTheme.gold),
-                          minHeight: 3,
-                        ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // لوجو فودافون أحمر
+                Container(
+                  width: 140, height: 140,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppTheme.bgWhite,
+                    boxShadow: [
+                      BoxShadow(color: AppTheme.redVF.withOpacity(0.2), blurRadius: 30, spreadRadius: 2),
+                      BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 20, offset: const Offset(0, 8)),
+                    ],
+                    border: Border.all(color: AppTheme.redVF.withOpacity(0.15), width: 2),
+                  ),
+                  padding: const EdgeInsets.all(24),
+                  child: Image.asset('assets/images/app_icon.png',
+                    errorBuilder: (_, __, ___) => Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: AppTheme.redGradient,
                       ),
-                    ).animate().fadeIn(),
-                  ],
+                      child: const Icon(Icons.signal_cellular_alt, color: Colors.white, size: 60),
+                    )),
+                )
+                .animate(onPlay: (c) => c.repeat(reverse: true))
+                .scale(begin: const Offset(1.0, 1.0), end: const Offset(1.05, 1.05), duration: 1500.ms),
+
+                const SizedBox(height: 40),
+
+                // اسم التطبيق - أحمر فودافون
+                AnimatedBuilder(
+                  animation: _shimmerCtrl,
+                  builder: (_, __) => ShaderMask(
+                    shaderCallback: (bounds) => AppTheme.shimmerRed(t: _shimmerCtrl.value).createShader(bounds),
+                    child: Text('𝘼𝙡-𝙃𝙖𝙢𝙯𝙖𝙬𝙞',
+                      style: GoogleFonts.cairo(fontSize: 36, fontWeight: FontWeight.w900, color: AppTheme.redVF,
+                        letterSpacing: 1)),
+                  ),
+                ).animate().fadeIn(duration: 600.ms).slideY(begin: 0.2),
+
+                const SizedBox(height: 8),
+
+                Text('𝙏𝙚𝙖𝙢 𝙅𝙤𝙆𝙨 𝙎𝙩𝙤𝙧𝙚',
+                  style: GoogleFonts.cairo(fontSize: 14, fontWeight: FontWeight.w600,
+                    color: AppTheme.grey, letterSpacing: 3),
+                ).animate().fadeIn(delay: 200.ms),
+
+                const SizedBox(height: 60),
+
+                if (_status.isNotEmpty) ...[
+                  Text(_status,
+                    style: GoogleFonts.cairo(color: AppTheme.grey, fontSize: 14),
+                  ).animate().fadeIn(),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: 180,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: LinearProgressIndicator(
+                        backgroundColor: AppTheme.greyLight,
+                        valueColor: const AlwaysStoppedAnimation(AppTheme.redVF),
+                        minHeight: 3,
+                      ),
+                    ),
+                  ).animate().fadeIn(),
                 ],
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -267,7 +276,7 @@ class _DialogBtn extends StatelessWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: color,
-            foregroundColor: AppTheme.black,
+            foregroundColor: Colors.white,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
           onPressed: onTap,
           child: Text(label, style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 16)),

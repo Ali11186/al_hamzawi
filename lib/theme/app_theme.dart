@@ -3,52 +3,50 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // ===== خلفية فخمة (أسود مطفي بدرجات) =====
-  static const Color bgDark      = Color(0xFF0B0708);
-  static const Color bgDark2     = Color(0xFF130B0C);
-  static const Color surface     = Color(0xFF1A1113);
-  static const Color surfaceAlt  = Color(0xFF221518);
+  // ===== خلفية بيضاء فاتحة =====
+  static const Color bgLight     = Color(0xFFF5F5F5);
+  static const Color bgWhite     = Color(0xFFFFFFFF);
+  static const Color surface     = Color(0xFFFFFFFF);
+  static const Color surfaceAlt  = Color(0xFFF8F8F8);
 
-  // ===== أحمر فودافون فخم (ماروون + احمر غامق) =====
-  static const Color redVF       = Color(0xFFE10A2C);
-  static const Color darkRed     = Color(0xFF7A0C1E);
-  static const Color maroon      = Color(0xFF4A0812);
+  // ===== أحمر فودافون =====
+  static const Color redVF       = Color(0xFFE60000);
+  static const Color redDark     = Color(0xFFB30000);
+  static const Color redLight    = Color(0xFFFF6B6B);
+  static const Color redPale     = Color(0xFFFFE5E5);
 
-  // ===== ذهبي (اللمسة الفاخرة) =====
-  static const Color gold        = Color(0xFFE8C468);
-  static const Color goldLight   = Color(0xFFF6E7B8);
-  static const Color goldDark    = Color(0xFFAD8A3C);
-  static const Color starColor   = Color(0xFFFFC94A);
+  // ===== ذهبي (لللمسات) =====
+  static const Color gold        = Color(0xFFD4A843);
+  static const Color goldLight   = Color(0xFFF5E6C8);
+  static const Color goldDark    = Color(0xFF9A7B2C);
 
-  // ===== نصوص ورمادي =====
-  static const Color white       = Color(0xFFFFFFFF);
-  static const Color offWhite    = Color(0xFFF3EDE6);
-  static const Color grey        = Color(0xFFB9AEA9);
-  static const Color darkGrey    = Color(0xFF6E6260);
-  static const Color lightGrey   = Color(0xFF2A1D20);
-  static const Color black       = Color(0xFF120A0B);
+  // ===== نصوص =====
+  static const Color black       = Color(0xFF1A1A1A);
+  static const Color greyDark    = Color(0xFF4A4A4A);
+  static const Color grey        = Color(0xFF888888);
+  static const Color greyLight   = Color(0xFFE0E0E0);
+  static const Color greyBg      = Color(0xFFF0F0F0);
+
+  // ===== إشعار =====
+  static const Color warningBg   = Color(0xFFFFF8E1);
+  static const Color warningText = Color(0xFFB8860B);
+  static const Color warningIcon = Color(0xFFD4A843);
 
   // ===== Gradients =====
-  static const LinearGradient goldGradient = LinearGradient(
-    colors: [Color(0xFFFCEFC7), Color(0xFFE8C468), Color(0xFFAD8A3C)],
+  static const LinearGradient redGradient = LinearGradient(
+    colors: [Color(0xFFE60000), Color(0xFFB30000)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
 
-  static const LinearGradient rubyGradient = LinearGradient(
-    colors: [Color(0xFFE10A2C), Color(0xFF7A0C1E), Color(0xFF4A0812)],
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
+  static const LinearGradient cardGradient = LinearGradient(
+    colors: [Color(0xFFE60000), Color(0xFFCC0000)],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
   );
 
-  static const LinearGradient backgroundGradient = LinearGradient(
-    colors: [bgDark2, bgDark, Color(0xFF160A0C)],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  );
-
-  static LinearGradient shimmerGold({double t = 0}) => LinearGradient(
-    colors: const [gold, goldLight, gold, goldDark, gold],
+  static LinearGradient shimmerRed({double t = 0}) => LinearGradient(
+    colors: const [redVF, redLight, redVF, redDark, redVF],
     stops: [
       0.0,
       (t - 0.15).clamp(0.0, 1.0),
@@ -60,108 +58,97 @@ class AppTheme {
     end: Alignment.centerRight,
   );
 
-  // ===== كارت زجاجي فاخر (Glassmorphism) =====
-  static BoxDecoration glassCard({Color? borderColor, double opacity = 0.05, double radius = 22}) => BoxDecoration(
-    color: white.withOpacity(opacity),
+  // ===== كارت أبيض =====
+  static BoxDecoration whiteCard({double radius = 16}) => BoxDecoration(
+    color: bgWhite,
     borderRadius: BorderRadius.circular(radius),
     border: Border.all(
-      color: (borderColor ?? gold).withOpacity(0.25),
-      width: 1.2,
-    ),
-    boxShadow: [
-      BoxShadow(color: Colors.black.withOpacity(0.35), blurRadius: 24, offset: const Offset(0, 10)),
-    ],
-  );
-
-  static Widget glass({required Widget child, double radius = 22, double blur = 14}) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(radius),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-        child: child,
-      ),
-    );
-  }
-
-  // كارت أساسي (سطح مرتفع فوق الخلفية الغامقة)
-  static BoxDecoration surfaceCard({Color? borderColor, double radius = 22}) => BoxDecoration(
-    color: surface,
-    borderRadius: BorderRadius.circular(radius),
-    border: Border.all(
-      color: (borderColor ?? gold).withOpacity(0.18),
+      color: greyLight.withOpacity(0.5),
       width: 1,
     ),
     boxShadow: [
-      BoxShadow(color: Colors.black.withOpacity(0.45), blurRadius: 20, offset: const Offset(0, 8)),
+      BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 12, offset: const Offset(0, 4)),
     ],
   );
 
-  // كارت متوهج بحدود ذهبية (للعناصر المميزة)
-  static BoxDecoration goldGlowCard({double radius = 22}) => BoxDecoration(
-    color: surfaceAlt,
+  // ===== كارت أحمر (للكروت) =====
+  static BoxDecoration redCard({double radius = 16}) => BoxDecoration(
+    gradient: cardGradient,
     borderRadius: BorderRadius.circular(radius),
-    border: const GradientBoxBorder(gradient: goldGradient, width: 1.4),
     boxShadow: [
-      BoxShadow(color: gold.withOpacity(0.18), blurRadius: 26, spreadRadius: 1),
-      BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 18, offset: const Offset(0, 8)),
+      BoxShadow(color: redVF.withOpacity(0.3), blurRadius: 12, offset: const Offset(0, 6)),
     ],
   );
 
-  static BoxDecoration greyCard({Color? borderColor}) => surfaceCard(borderColor: borderColor, radius: 18);
-  static BoxDecoration whiteCard({Color? borderColor}) => surfaceCard(borderColor: borderColor, radius: 20);
+  // ===== حقل إدخال =====
+  static BoxDecoration inputField({bool focused = false}) => BoxDecoration(
+    color: bgWhite,
+    borderRadius: BorderRadius.circular(14),
+    border: Border.all(
+      color: focused ? redVF : greyLight,
+      width: focused ? 1.5 : 1,
+    ),
+  );
 
   static ThemeData get theme => ThemeData(
-    brightness: Brightness.dark,
-    scaffoldBackgroundColor: bgDark,
-    colorScheme: const ColorScheme.dark(
-      primary: gold,
-      secondary: redVF,
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: bgLight,
+    colorScheme: const ColorScheme.light(
+      primary: redVF,
+      secondary: gold,
       surface: surface,
-      onPrimary: black,
-      onSurface: offWhite,
+      onPrimary: Colors.white,
+      onSurface: black,
     ),
-    textTheme: GoogleFonts.cairoTextTheme(ThemeData.dark().textTheme).apply(
-      bodyColor: offWhite,
-      displayColor: offWhite,
+    textTheme: GoogleFonts.cairoTextTheme(ThemeData.light().textTheme).apply(
+      bodyColor: black,
+      displayColor: black,
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.transparent,
+      backgroundColor: bgWhite,
       elevation: 0,
       surfaceTintColor: Colors.transparent,
       titleTextStyle: GoogleFonts.cairo(
-        color: offWhite,
+        color: black,
         fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
-      iconTheme: const IconThemeData(color: gold),
+      iconTheme: const IconThemeData(color: black),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: gold,
-        foregroundColor: black,
+        backgroundColor: redLight,
+        foregroundColor: Colors.white,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         padding: const EdgeInsets.symmetric(vertical: 16),
         textStyle: GoogleFonts.cairo(fontSize: 16, fontWeight: FontWeight.bold),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: surface,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: gold.withOpacity(0.15))),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: gold.withOpacity(0.15))),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: gold, width: 1.5)),
+      fillColor: bgWhite,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: const BorderSide(color: greyLight),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: const BorderSide(color: greyLight),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: const BorderSide(color: redVF, width: 1.5),
+      ),
       contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
       hintStyle: GoogleFonts.cairo(color: grey),
     ),
   );
 
-  // إبقاء الاسم القديم للتوافق مع الشاشات التي تستخدمه
   static ThemeData get darkTheme => theme;
 }
 
-/// حدود بتدرج لوني (مش متاحة جاهزة في Flutter)
+/// حدود بتدرج لوني
 class GradientBoxBorder extends BoxBorder {
   final Gradient gradient;
   final double width;
